@@ -30,7 +30,7 @@ static int TP_FB_OnPaint(HWND hWnd)
 	hdc = BeginPaint(hWnd, &ps);
 
 	Graphics graphics(hdc);
-	RectF rfWnd(0, 0, rectWnd.right - rectWnd.left, rectWnd.bottom - rectWnd.top);
+	RectF rfWnd(0, 0, (REAL)(rectWnd.right - rectWnd.left), (REAL)(rectWnd.bottom - rectWnd.top));
 	Pen pen(Color(255, 0, 0, 0));
 	SolidBrush brush(Color(255, 255, 255, 255));
 	graphics.DrawRectangle(&pen, rfWnd);
@@ -53,7 +53,7 @@ static int TP_FB_OnPaint(HWND hWnd)
 
 int TP_FB_OnMouseHover(HWND hWnd, WPARAM wParam, int x, int y)
 {
-	PAINTSTRUCT ps;
+	//PAINTSTRUCT ps;
 	HDC hdc;
 	PFB_DESCR pDescr;
 
@@ -63,7 +63,7 @@ int TP_FB_OnMouseHover(HWND hWnd, WPARAM wParam, int x, int y)
 	hdc = GetWindowDC(hWnd);//BeginPaint(hWnd, &ps);
 
 	Graphics graphics(hdc);
-	RectF rfWnd(0, 0, rectWnd.right - rectWnd.left, rectWnd.bottom - rectWnd.top);
+	RectF rfWnd(0, 0, (REAL)(rectWnd.right - rectWnd.left), (REAL)(rectWnd.bottom - rectWnd.top));
 	Pen pen(Color(255, 0, 0, 0));
 	SolidBrush brush(Color(255, 0, 255, 255));
 	graphics.DrawRectangle(&pen, rfWnd);
@@ -93,7 +93,7 @@ int TP_FB_OnMouseHover(HWND hWnd, WPARAM wParam, int x, int y)
 }
 int TP_FB_OnMouseDown(HWND hWnd, WPARAM wParam, int x, int y)
 {
-	PAINTSTRUCT ps;
+	//PAINTSTRUCT ps;
 	HDC hdc;
 	PFB_DESCR pDescr;
 
@@ -103,7 +103,7 @@ int TP_FB_OnMouseDown(HWND hWnd, WPARAM wParam, int x, int y)
 	hdc = GetWindowDC(hWnd);//BeginPaint(hWnd, &ps);
 
 	Graphics graphics(hdc);
-	RectF rfWnd(0, 0, rectWnd.right - rectWnd.left, rectWnd.bottom - rectWnd.top);
+	RectF rfWnd(0, 0, (REAL)(rectWnd.right - rectWnd.left), (REAL)(rectWnd.bottom - rectWnd.top));
 	Pen pen(Color(255, 0, 0, 0));
 	SolidBrush whiteBrush(Color(255, 255, 255, 255));
 	SolidBrush  blackBrush(Color(255, 0, 0, 0));
@@ -134,7 +134,7 @@ int TP_FB_OnMouseDown(HWND hWnd, WPARAM wParam, int x, int y)
 
 int TP_FB_OnMouseLeave(HWND hWnd, int x, int y)
 {
-	PAINTSTRUCT ps;
+	//PAINTSTRUCT ps;
 	HDC hdc;
 	PFB_DESCR pDescr;
 
@@ -144,7 +144,7 @@ int TP_FB_OnMouseLeave(HWND hWnd, int x, int y)
 	hdc = GetWindowDC(hWnd);//BeginPaint(hWnd, &ps);
 
 	Graphics graphics(hdc);
-	RectF rfWnd(0, 0, rectWnd.right - rectWnd.left, rectWnd.bottom - rectWnd.top);
+	RectF rfWnd(0, 0, (REAL)(rectWnd.right - rectWnd.left), (REAL)(rectWnd.bottom - rectWnd.top));
 	Pen pen(Color(255, 0, 0, 0));
 	SolidBrush brush(Color(255, 255, 255, 255));
 	graphics.DrawRectangle(&pen, rfWnd);

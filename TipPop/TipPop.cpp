@@ -122,7 +122,7 @@ void dump_to_stdout( TiXmlNode* pParent, unsigned int indent = 0 )
 		default: 
 			printf( "%s%d attributes", getIndentAlt(indent), num);
 			OutputDebugStringA(getIndentAlt(indent));
-			OutputDebugStringA(itoa(num, NULL, NULL));
+			OutputDebugStringA(_itoa(num, NULL, NULL));
 			OutputDebugStringA(" attributes");
 			break;
 		}
@@ -393,7 +393,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		AppendMenu(ppMenu, MF_STRING, IDM_MYEXIT, L"E&xit");
 
 		// Create the 'settings' interface
-		TP_FB_CreateButton(hWnd, L"Click Through: ON", 123, 10, 70, 160, 20);
+		TP_FB_CreateButton(hWnd, L"Click Through: OFF", 123, 10, 70, 160, 20);
 		TP_FB_CreateButton(hWnd, L"Top Most: ON", 321, 10, 95, 160, 20);
 		break;
 	case WM_NOTIFY:
