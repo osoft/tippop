@@ -4,6 +4,11 @@
 
 #define MAX_LOADSTRING 100
 
+#define BTNTXTCLR Color(255, 0, 0, 0)
+#define BTNBGCLR Color(255, 170, 170, 170)
+#define BTNTXTCLRHOVER Color(255, 0, 0, 0)
+#define BTNBGCLRHOVER Color(255, 170, 170, 255)
+
 TCHAR szFBClassName[MAX_LOADSTRING] = L"FlatBtnWndCls";			// 主窗口类名
 TCHAR szFBWndName[MAX_LOADSTRING] = L"FlatButton";
 
@@ -31,14 +36,14 @@ static int TP_FB_OnPaint(HWND hWnd)
 
 	Graphics graphics(hdc);
 	RectF rfWnd(0, 0, (REAL)(rectWnd.right - rectWnd.left), (REAL)(rectWnd.bottom - rectWnd.top));
-	Pen pen(Color(255, 0, 0, 0));
-	SolidBrush brush(Color(255, 255, 255, 255));
-	graphics.DrawRectangle(&pen, rfWnd);
+	//Pen pen(Color(255, 0, 0, 0));
+	SolidBrush brush(BTNBGCLR);
+	//graphics.DrawRectangle(&pen, rfWnd);
 	graphics.FillRectangle((Brush *)&brush, rfWnd);
 
 	FontFamily  fontFamily(DEFAULTFONT);
 	Font        font(&fontFamily, SETTINGSFONTSIZE, FontStyleRegular, UnitPixel);
-	SolidBrush  solidBrush(Color(255, 0, 0, 0));
+	SolidBrush  solidBrush(BTNTXTCLR);
 	StringFormat format;
 	format.SetAlignment(StringAlignmentCenter);
 	graphics.SetTextRenderingHint(TextRenderingHintAntiAlias);
@@ -53,7 +58,6 @@ static int TP_FB_OnPaint(HWND hWnd)
 
 int TP_FB_OnMouseHover(HWND hWnd, WPARAM wParam, int x, int y)
 {
-	//PAINTSTRUCT ps;
 	HDC hdc;
 	PFB_DESCR pDescr;
 
@@ -64,14 +68,14 @@ int TP_FB_OnMouseHover(HWND hWnd, WPARAM wParam, int x, int y)
 
 	Graphics graphics(hdc);
 	RectF rfWnd(0, 0, (REAL)(rectWnd.right - rectWnd.left), (REAL)(rectWnd.bottom - rectWnd.top));
-	Pen pen(Color(255, 0, 0, 0));
-	SolidBrush brush(Color(255, 0, 255, 255));
-	graphics.DrawRectangle(&pen, rfWnd);
+	//Pen pen(Color(255, 0, 0, 0));
+	SolidBrush brush(BTNBGCLRHOVER);
+	//graphics.DrawRectangle(&pen, rfWnd);
 	graphics.FillRectangle((Brush *)&brush, rfWnd);
 
 	FontFamily  fontFamily(DEFAULTFONT);
 	Font        font(&fontFamily, SETTINGSFONTSIZE, FontStyleRegular, UnitPixel);
-	SolidBrush  solidBrush(Color(255, 0, 0, 0));
+	SolidBrush  solidBrush(BTNTXTCLRHOVER);
 	StringFormat format;
 	format.SetAlignment(StringAlignmentCenter);
 	graphics.SetTextRenderingHint(TextRenderingHintAntiAlias);
@@ -145,14 +149,14 @@ int TP_FB_OnMouseLeave(HWND hWnd, int x, int y)
 
 	Graphics graphics(hdc);
 	RectF rfWnd(0, 0, (REAL)(rectWnd.right - rectWnd.left), (REAL)(rectWnd.bottom - rectWnd.top));
-	Pen pen(Color(255, 0, 0, 0));
-	SolidBrush brush(Color(255, 255, 255, 255));
-	graphics.DrawRectangle(&pen, rfWnd);
+	//Pen pen(Color(255, 0, 0, 0));
+	SolidBrush brush(BTNBGCLR);
+	//graphics.DrawRectangle(&pen, rfWnd);
 	graphics.FillRectangle((Brush *)&brush, rfWnd);
 
 	FontFamily  fontFamily(DEFAULTFONT);
 	Font        font(&fontFamily, SETTINGSFONTSIZE, FontStyleRegular, UnitPixel);
-	SolidBrush  solidBrush(Color(255, 0, 0, 0));
+	SolidBrush  solidBrush(BTNTXTCLR);
 	StringFormat format;
 	format.SetAlignment(StringAlignmentCenter);
 	graphics.SetTextRenderingHint(TextRenderingHintAntiAlias);
@@ -172,6 +176,33 @@ int TP_FB_OnMouseLeave(HWND hWnd, int x, int y)
 	}
 
 	return 0;
+}
+
+static void TP_FB_DrawButtonFace(HWND hWnd, Color &clrBg, Color &clrTxt)
+{
+	HDC hdc;
+	PFB_DESCR pDescr;
+	RECT rectWnd;
+
+	hdc = GetWindowDC(hWnd);
+	Graphics graphics(hdc);
+
+	pDescr = (PFB_DESCR)GetWindowLong(hWnd, 0);
+
+	// Draw background
+	GetWindowRect(hWnd, &rectWnd);
+	RectF rfWnd(0, 0, (REAL)(rectWnd.right - rectWnd.left), (REAL)(rectWnd.bottom - rectWnd.top));
+	SolidBrush brush(clrBg);
+	graphics.FillRectangle((Brush *)&brush, rfWnd);
+
+	// Draw caption
+	FontFamily  fontFamily(DEFAULTFONT);
+	Font        font(&fontFamily, SETTINGSFONTSIZE, FontStyleRegular, UnitPixel);
+	SolidBrush  solidBrush(clrTxt);
+	StringFormat format;
+	format.SetAlignment(StringAlignmentCenter);
+	graphics.SetTextRenderingHint(TextRenderingHintAntiAlias);
+	graphics.DrawString(pDescr->caption, -1, &font, rfWnd, &format, &solidBrush);
 }
 
 static LRESULT CALLBACK TP_FB_WndProc(HWND hWnd, UINT nMsg, WPARAM wParam, LPARAM lParam)
@@ -268,6 +299,8 @@ HWND TP_FB_CreateButton(HWND hParent, WCHAR *p_wcCaption, int id, int x, int y, 
 	if(hWnd)
 	{
 		PFB_DESCR pDescr = (PFB_DESCR)malloc(sizeof(FB_DESCR));
+		if(pDescr == NULL)
+			return NULL;
 		pDescr->id = id;
 		wcscpy_s(pDescr->caption, p_wcCaption);
 		SetWindowLong(hWnd, 0, (LONG)pDescr);
