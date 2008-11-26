@@ -218,6 +218,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\TP_XMLAdapter.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\TPTag.cpp"
 				>
 			</File>
@@ -257,6 +261,10 @@
 			</File>
 			<File
 				RelativePath=".\TP_FlatButton.h"
+				>
+			</File>
+			<File
+				RelativePath=".\TP_XMLAdapter.h"
 				>
 			</File>
 			<File
