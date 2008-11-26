@@ -14,7 +14,7 @@ typedef struct
 
 HWND TP_DT_CreateWindow(HWND hParent, WCHAR *str, bool bClickThrough, bool bTopMost, short iAlpha);
 INT TP_DT_RegistWindow();
-int InitTagCB();
+tp_error_e InitTagCB();
 
 
 #endif

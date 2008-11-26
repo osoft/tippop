@@ -270,7 +270,7 @@ int TP_DT_OnMouseLeave(HWND hWnd, int x, int y)
 	return 0;
 }
 
-int InitTagCB()
+tp_error_e InitTagCB()
 {
 	int i;
 	for(i = 0; i < 256; i++)
@@ -278,8 +278,10 @@ int InitTagCB()
 		tcb[i].hWnd = 0;
 	}
 	hMutex = CreateMutex(NULL, FALSE, NULL);
+	if(hMutex == NULL)
+		return TP_ERROR_FAILED;
 	ReleaseMutex(hMutex);
-	return 0;
+	return TP_NO_ERROR;
 }
 
 static tp_error_e tcbCreateTag(HWND hWnd)

@@ -9,8 +9,11 @@
 #include "TPTag.h"
 #include <shellapi.h>
 #include "tinyxml.h"
-//#include "gdiplus.h"
 
+#if defined(NDEBUG) || !defined(_DEBUG)
+#define OutputDebugStringA(x)
+#define OutputDebugString(x)
+#endif
 
 #define MAX_LOADSTRING 100
 #define IDM_MYEXIT 1001
@@ -267,7 +270,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 
 	hInst = hInstance; // 将实例句柄存储在全局变量中
 
-	TiXmlDocument doc("test.xml");
+	//TiXmlDocument doc("test.xml");
 
 
 	hWnd = CreateWindowEx(NULL, szWindowClass, szTitle, NULL,
