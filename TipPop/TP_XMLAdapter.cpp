@@ -1,11 +1,9 @@
 #include "stdafx.h"
 #include "TP_XMLAdapter.h"
 #include <shellapi.h>
-#include "tinyxml.h"
 
 #if defined(NDEBUG) || !defined(_DEBUG)
 #define OutputDebugStringA(x)
-#define OutputDebugString(x)
 #endif
 
 const unsigned int NUM_INDENTS_PER_SPACE=2;
@@ -165,12 +163,37 @@ tp_error_e TP_XML_Init(void)
 	return TP_NO_ERROR;
 }
 
-tp_error_e TP_XML_Tips_Read(void);
+tp_error_e TP_XML_Tips_Read(void)
+{
+	dump_to_stdout(&xmlDoc);
+	return TP_NO_ERROR;
+}
 
-tp_error_e TP_XML_Tip_Create(TP_XML_Tip_t &tip);
+TiXmlNode * TP_XML_Tip_Create(TP_XML_Tip_t &tip)
+{
+	char chTemp[256];
+	::WideCharToMultiByte(CP_ACP, 0, L"ASDF", 256, chTemp, 256, " ", FALSE);
+	TiXmlElement elmtNewTip("tip");
+	TiXmlElement elmtTitle("title");
+	TiXmlElement elmtContent("content");
+
+	::WideCharToMultiByte(CP_ACP, 0, tip.pwcTitle, 256, chTemp, 256, NULL, false);
+	TiXmlText txtTitle(chTemp);
+	//txtTitle.SetValue(tip.pwcTitle);
+	TiXmlText txtContent(chTemp);
+	//txtTitle.SetValue(tip.pwcContent);
+	elmtTitle.InsertEndChild(txtTitle);
+	elmtContent.InsertEndChild(txtContent);
+	elmtNewTip.InsertEndChild(elmtTitle);
+	elmtNewTip.InsertEndChild(elmtContent);
+	OutputDebugStringA("||||||||||||||||||||||||\n");
+	dump_to_stdout(&elmtNewTip);
+	OutputDebugStringA("||||||||||||||||||||||||\n");
+	return &elmtTitle;
+}
 
 tp_error_e TP_XML_Tip_Delete(TP_XML_Tip_t &tip);
 
-tp_error_e TP_XML_Setting_Read(TP_XML_Settings_e enmSetting, int value);
+tp_error_e TP_XML_Settings_Read(TP_XML_Settings_e enmSetting, int value);
 
-tp_error_e TP_XML_Setting_Write(TP_XML_Settings_e enmSetting, int value);
+tp_error_e TP_XML_Settings_Write(TP_XML_Settings_e enmSetting, int value);

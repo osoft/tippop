@@ -7,12 +7,13 @@
 #include "TP_DesktopTag.h"
 #include "TP_FlatButton.h"
 #include "TPTag.h"
-#include <shellapi.h>
 #include "tinyxml.h"
+#include "TP_XMLAdapter.h"
 
 #if defined(NDEBUG) || !defined(_DEBUG)
 #define OutputDebugStringA(x)
-#define OutputDebugString(x)
+#else
+#include <shellapi.h>
 #endif
 
 #define MAX_LOADSTRING 100
@@ -155,10 +156,13 @@ void dump_to_stdout( TiXmlNode* pParent, unsigned int indent = 0 )
 		break;
 
 	case TiXmlNode::TEXT:
+		WCHAR wcTemp[128];
 		pText = pParent->ToText();
 		printf( "Text: [%s]", pText->Value());
 		OutputDebugStringA("Text: [");
-		OutputDebugStringA(pText->Value());
+		::MultiByteToWideChar(CP_UTF8, 0, pText->Value(), 64, wcTemp, 64);
+		OutputDebugString(wcTemp);
+		//OutputDebugString(pText->Value());
 		OutputDebugStringA("]");
 		break;
 
@@ -216,7 +220,11 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	return (int) msg.wParam;
 }
 
-
+DWORD WINAPI TagProcess(LPVOID lpParam)
+{
+	dump_to_stdout(&doc);
+	return 0;
+}
 
 //
 //  º¯Êý: MyRegisterClass()
@@ -299,7 +307,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 	bool loadOkay = doc.LoadFile();
 	if (loadOkay)
 	{
-	   printf("\n%s:\n", "test.xml");
+	   //CreateThread(NULL, 4096, TagProcess, NULL, NULL, NULL);
 	   dump_to_stdout(&doc);
 	   //MessageBox(hWnd, L"Done loading xml",NULL, NULL);
 	}
@@ -307,7 +315,12 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 	{
 	   printf("Failed to load file \"%s\"\n", "test.xml");
 	}
+	
+	TP_XML_Tip_t tipTemp;
+	tipTemp.pwcTitle = L"TEST1";
+	tipTemp.pwcContent = L"content1";
 
+	TP_XML_Tip_Create(tipTemp);
 
 	return TRUE;
 }

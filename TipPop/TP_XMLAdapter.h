@@ -2,6 +2,7 @@
 #define __TP_XMLADAPTER_H__
 
 #include "TipPop.h"
+#include "tinyxml.h"
 
 typedef struct  
 {
@@ -21,12 +22,12 @@ tp_error_e TP_XML_Init(void);
 
 tp_error_e TP_XML_Tips_Read(void);
 
-tp_error_e TP_XML_Tip_Create(TP_XML_Tip_t &tip);
+TiXmlNode* TP_XML_Tip_Create(TP_XML_Tip_t &tip);
 
 tp_error_e TP_XML_Tip_Delete(TP_XML_Tip_t &tip);
 
-tp_error_e TP_XML_Setting_Read(TP_XML_Settings_e enmSetting, int value);
+tp_error_e TP_XML_Settings_Read(TP_XML_Settings_e enmSetting, int value);
 
-tp_error_e TP_XML_Setting_Write(TP_XML_Settings_e enmSetting, int value);
+tp_error_e TP_XML_Settings_Write(TP_XML_Settings_e enmSetting, int value);
 
 #endif

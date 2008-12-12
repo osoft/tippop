@@ -3,7 +3,7 @@
 #include "resource.h"
 
 #define FLATBUTTONCMD 0x213
-#define DEFAULTFONT L"Verdana"
+#define DEFAULTFONT L"Î¢ÈíÑÅºÚ"
 #define SETTINGSFONTSIZE 11
 #define TIPTAGSFONTSIZE 11
 typedef enum

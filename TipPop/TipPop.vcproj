@@ -294,6 +294,10 @@
 			RelativePath=".\ReadMe.txt"
 			>
 		</File>
+		<File
+			RelativePath=".\test.xml"
+			>
+		</File>
 	</Files>
 	<Globals>
 	</Globals>

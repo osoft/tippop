@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <TP>
-	<config>
-		<topMost>1</topMost>
-		<clickThrough>1</clickThrough>
-		<alpha>200</alpha>
-	</config>
-	<tips>
+  <config>
+    <topMost>1</topMost>
+    <clickThrough>1</clickThrough>
+    <alpha>200</alpha>
+  </config>
+  <tips>
     <tip>
       <title>Tag one</title>
       <content>Test Content</content>
@@ -15,8 +15,8 @@
       </pos>
     </tip>
     <tip>
-      <title>Tag ·¡</title>
-      <content>Also a test ConÄÚÈÝtent</content>
+      <title>Tagæµ‹è¯•</title>
+      <content>Also a test Conå†…å®¹tent</content>
       <pos>
         <x>330</x>
         <y>280</y>
