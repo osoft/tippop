@@ -15,7 +15,7 @@ CTPTag::CTPTag(TiXmlNode *pTagNode)
 {
 	WCHAR str[64];
 	//str = (WCHAR *)pTagNode->FirstChild()->Value();
-	::MultiByteToWideChar(CP_ACP, NULL, pTagNode->FirstChild()->FirstChild()->ToText()->Value(), 64, str, 64);
+	::MultiByteToWideChar(CP_UTF8, NULL, pTagNode->FirstChild()->FirstChild()->ToText()->Value(), 64, str, 64);
 	this->hWndTag = TP_DT_CreateWindow(hWndMain, str, false, true, 100);
 	hWndAllTags[lTagsCount] = this->hWndTag;
 	lTagsCount++;

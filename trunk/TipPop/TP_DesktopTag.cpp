@@ -412,6 +412,7 @@ static LRESULT CALLBACK TP_DT_WndProc(HWND hWnd, UINT nMsg, WPARAM wParam, LPARA
 	case WM_LBUTTONDOWN:
 		ptOld.x = LOWORD(lParam);
 		ptOld.y = HIWORD(lParam);
+
 		break;
 	default:
 		return DefWindowProc(hWnd, nMsg, wParam, lParam);
